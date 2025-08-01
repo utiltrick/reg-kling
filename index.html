@@ -1,594 +1,234 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kling AI Script Runner</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Copy JS to Console</title>
     <style>
-        :root {
-            --primary: #6366f1;
-            --primary-hover: #5b21b6;
-            --secondary: #64748b;
-            --secondary-hover: #475569;
-            --success: #10b981;
-            --background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --card-bg: rgba(255, 255, 255, 0.95);
-            --text: #1e293b;
-            --text-light: #64748b;
-            --border: #e2e8f0;
-            --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--background);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            margin: 0;
             padding: 20px;
-            position: relative;
-            overflow-x: hidden;
+            box-sizing: border-box;
         }
-
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.05)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.05)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.03)"/><circle cx="20" cy="80" r="0.5" fill="rgba(255,255,255,0.03)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-            pointer-events: none;
-        }
-
         .container {
-            max-width: 800px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 500px;
             width: 100%;
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            border-radius: 24px;
-            padding: 40px;
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            position: relative;
-            z-index: 1;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            color: #333;
         }
-
-        .header {
+        h2 {
             text-align: center;
-            margin-bottom: 40px;
-            position: relative;
+            margin-bottom: 20px;
+            color: #1e3c72;
+            font-size: 24px;
+            font-weight: 600;
         }
-
-        .logo {
-            font-size: 4rem;
-            margin-bottom: 16px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+        .input-group {
+            margin-bottom: 20px;
         }
-
-        .title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 12px;
-            background: linear-gradient(135deg, #1e293b, #475569);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .subtitle {
-            font-size: 1.125rem;
-            color: var(--text-light);
-            line-height: 1.6;
-        }
-
-        .input-section {
-            margin-bottom: 40px;
-        }
-
-        .input-label {
+        label {
             display: block;
-            font-weight: 600;
-            color: var(--text);
-            margin-bottom: 12px;
-            font-size: 1.1rem;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #2a5298;
         }
-
-        .input-wrapper {
-            position: relative;
-        }
-
-        .input-field {
+        input {
             width: 100%;
-            padding: 16px 20px;
-            font-size: 1rem;
-            border: 2px solid var(--border);
-            border-radius: 16px;
-            background: white;
-            color: var(--text);
-            transition: all 0.3s ease;
-            font-family: inherit;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
-
-        .input-field:focus {
+        input:focus {
+            border-color: #2a5298;
+            box-shadow: 0 0 8px rgba(42, 82, 152, 0.3);
             outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
-            transform: translateY(-2px);
         }
-
-        .input-field::placeholder {
-            color: var(--text-light);
-        }
-
-        .steps-section {
-            margin-bottom: 20px;
-        }
-
-        .steps-label {
-            font-weight: 600;
-            color: var(--text);
-            margin-bottom: 24px;
-            font-size: 1.1rem;
-        }
-
-        .steps-grid {
-            display: grid;
-            gap: 24px;
-        }
-
-        .step-card {
-            background: white;
-            border-radius: 20px;
-            padding: 28px;
-            box-shadow: var(--shadow-lg);
-            border: 1px solid rgba(99, 102, 241, 0.1);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .step-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), #8b5cf6);
-        }
-
-        .step-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 32px 64px -12px rgba(0, 0, 0, 0.25);
-        }
-
-        .step-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .step-number {
-            width: 48px;
-            height: 48px;
-            border-radius: 16px;
-            background: linear-gradient(135deg, var(--primary), #8b5cf6);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 1.25rem;
-            margin-right: 16px;
-            box-shadow: 0 8px 25px -8px var(--primary);
-        }
-
-        .step-info h3 {
-            font-size: 1.375rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 6px;
-        }
-
-        .step-info p {
-            color: var(--text-light);
-            font-size: 1rem;
-            line-height: 1.5;
-        }
-
         .button-group {
             display: flex;
+            flex-direction: column;
             gap: 12px;
-            flex-wrap: wrap;
         }
-
-        .copy-btn {
-            flex: 1;
-            min-width: 140px;
-            padding: 14px 24px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            font-family: inherit;
+        button {
+            padding: 12px;
             border: none;
-            border-radius: 12px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
             cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(10px);
+            transition: background-color 0.3s, transform 0.2s;
         }
-
-        .copy-btn::before {
-            content: '';
+        button:hover {
+            transform: translateY(-2px);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+        button:nth-child(1) {
+            background: #2a5298;
+            color: #fff;
+        }
+        button:nth-child(1):hover {
+            background: #1e3c72;
+        }
+        button:nth-child(2) {
+            background: #3c8dbc;
+            color: #fff;
+        }
+        button:nth-child(2):hover {
+            background: #2e6d9a;
+        }
+        button:nth-child(3) {
+            background: #4a90e2;
+            color: #fff;
+        }
+        button:nth-child(3):hover {
+            background: #357abd;
+        }
+        
+        /* Styles for fallback textarea */
+        #fallbackTextarea {
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
+            left: -9999px;
+            top: -9999px;
+            opacity: 0;
         }
-
-        .copy-btn:hover::before {
-            left: 100%;
-        }
-
-        .copy-btn.primary {
-            background: linear-gradient(135deg, var(--primary), #8b5cf6);
+        
+        .success-message {
+            background: #4CAF50;
             color: white;
-            box-shadow: 0 8px 25px -8px var(--primary);
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            text-align: center;
+            display: none;
         }
-
-        .copy-btn.primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 30px -5px var(--primary);
-        }
-
-        .copy-btn.secondary {
-            background: linear-gradient(135deg, var(--secondary), #475569);
+        
+        .error-message {
+            background: #f44336;
             color: white;
-            box-shadow: 0 8px 25px -8px var(--secondary);
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            text-align: center;
+            display: none;
         }
-
-        .copy-btn.secondary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 30px -5px var(--secondary);
-        }
-
-        .copy-btn:active {
-            transform: scale(0.98);
-        }
-
-        .copy-btn.copied {
-            background: linear-gradient(135deg, var(--success), #059669);
-            box-shadow: 0 8px 25px -8px var(--success);
-        }
-
-        @media (max-width: 768px) {
+        
+        @media (max-width: 480px) {
             .container {
-                padding: 24px;
-                margin: 10px;
-            }
-            
-            .title {
-                font-size: 2rem;
-            }
-            
-            .logo {
-                font-size: 3rem;
-            }
-            
-            .step-card {
                 padding: 20px;
             }
-            
-            .button-group {
-                flex-direction: column;
+            h2 {
+                font-size: 20px;
             }
-            
-            .copy-btn {
-                min-width: auto;
+            input, button {
+                font-size: 14px;
             }
-        }
-
-        .floating-shapes {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 0;
-        }
-
-        .shape {
-            position: absolute;
-            opacity: 0.1;
-            animation: float 20s infinite linear;
-        }
-
-        .shape:nth-child(1) {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 50%;
-            top: 20%;
-            left: 10%;
-            animation-delay: -5s;
-        }
-
-        .shape:nth-child(2) {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #f093fb, #f5576c);
-            border-radius: 30%;
-            top: 60%;
-            right: 10%;
-            animation-delay: -10s;
-        }
-
-        .shape:nth-child(3) {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #4facfe, #00f2fe);
-            border-radius: 20%;
-            top: 80%;
-            left: 70%;
-            animation-delay: -15s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
         }
     </style>
 </head>
 <body>
-    <div class="floating-shapes">
-        <div class="shape"></div>
-        <div class="shape"></div>
-        <div class="shape"></div>
-    </div>
-
-    <input type="hidden" id="script-url-1" value="https://cdn.jsdelivr.net/gh/utiltrick/kling-buff@main/step1.js">
-    <input type="hidden" id="script-url-2" value="https://cdn.jsdelivr.net/gh/utiltrick/kling-buff@main/step2.js">
-    <input type="hidden" id="script-url-3" value="https://cdn.jsdelivr.net/gh/utiltrick/kling-buff@main/step3.js">
-
     <div class="container">
-        <header class="header">
-            <div class="logo">🚀</div>
-            <h1 class="title">Kling AI Script Runner</h1>
-            <p class="subtitle">Công cụ tự động hóa các tác vụ Kling AI một cách nhanh chóng và hiệu quả</p>
-        </header>
-
-        <main>
-            <div class="input-section">
-                <label for="follow-link-input" class="input-label">🔗 Nhập link profile Kling cần follow</label>
-                <div class="input-wrapper">
-                    <input 
-                        type="text" 
-                        id="follow-link-input" 
-                        class="input-field"
-                        placeholder="https://app.klingai.com/global/user-home/..."
-                    >
-                </div>
-            </div>
-
-            <div class="steps-section">
-                <label class="steps-label">⚡ Thực hiện các bước theo thứ tự</label>
-                <div class="steps-grid">
-                    <div class="step-card">
-                        <div class="step-header">
-                            <div class="step-number">1</div>
-                            <div class="step-info">
-                                <h3>Đăng ký tài khoản</h3>
-                                <p>Tải script đăng ký và thực hiện tự động việc tạo tài khoản mới</p>
-                            </div>
-                        </div>
-                        <div class="button-group">
-                            <button class="copy-btn secondary" data-type="script" data-step="1">
-                                📋 Copy Script
-                            </button>
-                            <button class="copy-btn primary" data-type="function" data-step="1">
-                                ▶️ Copy Hàm Chạy
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="step-card">
-                        <div class="step-header">
-                            <div class="step-number">2</div>
-                            <div class="step-info">
-                                <h3>Follow người dùng</h3>
-                                <p>Tự động follow profile đã nhập ở bước trên</p>
-                            </div>
-                        </div>
-                        <div class="button-group">
-                            <button class="copy-btn secondary" data-type="script" data-step="2">
-                                📋 Copy Script
-                            </button>
-                            <button class="copy-btn primary" data-type="function" data-step="2">
-                                ▶️ Copy Hàm Chạy
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="step-card">
-                        <div class="step-header">
-                            <div class="step-number">3</div>
-                            <div class="step-info">
-                                <h3>Đăng xuất</h3>
-                                <p>Tự động đăng xuất khỏi tài khoản hiện tại</p>
-                            </div>
-                        </div>
-                        <div class="button-group">
-                            <button class="copy-btn secondary" data-type="script" data-step="3">
-                                📋 Copy Script
-                            </button>
-                            <button class="copy-btn primary" data-type="function" data-step="3">
-                                ▶️ Copy Hàm Chạy
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
+        <h2>Sao chép lệnh để chạy trong Console</h2>
+        <div class="input-group">
+            <label for="followLink">Step 1 - Nhập Follow Link:</label>
+            <input type="text" id="followLink" placeholder="https://app.klingai.com/...">
+        </div>
+        <div class="button-group">
+            <button onclick="copyStep(1)">Copy Step 1</button>
+            <button onclick="copyStep(2)">Copy Step 2</button>
+            <button onclick="copyStep(3)">Copy Step 3</button>
+        </div>
+        <div id="successMessage" class="success-message"></div>
+        <div id="errorMessage" class="error-message"></div>
+        <textarea id="fallbackTextarea"></textarea>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const followLinkInput = document.getElementById('follow-link-input');
-            const scriptUrls = {
-                1: document.getElementById('script-url-1').value,
-                2: document.getElementById('script-url-2').value,
-                3: document.getElementById('script-url-3').value,
-            };
-
-            // Hàm sao chép với hiệu ứng đẹp
-            function copyToClipboard(text, buttonElement) {
-                navigator.clipboard.writeText(text).then(() => {
-                    const originalHTML = buttonElement.innerHTML;
-                    buttonElement.innerHTML = '✅ Đã sao chép';
-                    buttonElement.classList.add('copied');
-                    
-                    // Tạo hiệu ứng ripple
-                    const ripple = document.createElement('div');
-                    ripple.style.cssText = `
-                        position: absolute;
-                        top: 50%;
-                        left: 50%;
-                        width: 20px;
-                        height: 20px;
-                        border-radius: 50%;
-                        background: rgba(255,255,255,0.6);
-                        transform: translate(-50%, -50%) scale(0);
-                        animation: ripple 0.6s ease-out;
-                        pointer-events: none;
-                    `;
-                    
-                    buttonElement.style.position = 'relative';
-                    buttonElement.appendChild(ripple);
-                    
-                    setTimeout(() => {
-                        buttonElement.innerHTML = originalHTML;
-                        buttonElement.classList.remove('copied');
-                        if (ripple.parentNode) {
-                            ripple.parentNode.removeChild(ripple);
-                        }
-                    }, 2500);
-                }).catch(err => {
-                    console.error('Lỗi khi sao chép:', err);
-                    
-                    // Fallback cho trình duyệt không hỗ trợ
-                    const textArea = document.createElement('textarea');
-                    textArea.value = text;
-                    document.body.appendChild(textArea);
-                    textArea.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(textArea);
-                    
-                    const originalHTML = buttonElement.innerHTML;
-                    buttonElement.innerHTML = '✅ Đã sao chép';
-                    buttonElement.classList.add('copied');
-                    
-                    setTimeout(() => {
-                        buttonElement.innerHTML = originalHTML;
-                        buttonElement.classList.remove('copied');
-                    }, 2500);
-                });
+        const baseUrl = 'https://cdn.jsdelivr.net/gh/utiltrick/kling-buff@main/step';
+        
+        function showMessage(message, isSuccess = true) {
+            const successDiv = document.getElementById('successMessage');
+            const errorDiv = document.getElementById('errorMessage');
+            
+            // Hide both messages first
+            successDiv.style.display = 'none';
+            errorDiv.style.display = 'none';
+            
+            if (isSuccess) {
+                successDiv.textContent = message;
+                successDiv.style.display = 'block';
+                setTimeout(() => successDiv.style.display = 'none', 3000);
+            } else {
+                errorDiv.textContent = message;
+                errorDiv.style.display = 'block';
+                setTimeout(() => errorDiv.style.display = 'none', 3000);
             }
-
-            // Thêm CSS cho animation ripple
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes ripple {
-                    to {
-                        transform: translate(-50%, -50%) scale(4);
-                        opacity: 0;
-                    }
+        }
+        
+        function fallbackCopyTextToClipboard(text) {
+            const textArea = document.getElementById('fallbackTextarea');
+            textArea.value = text;
+            textArea.select();
+            textArea.setSelectionRange(0, 99999); // For mobile devices
+            
+            try {
+                const successful = document.execCommand('copy');
+                return successful;
+            } catch (err) {
+                console.error('Fallback: Could not copy text: ', err);
+                return false;
+            }
+        }
+        
+        async function copyToClipboard(text) {
+            // Try modern Clipboard API first
+            if (navigator.clipboard && window.isSecureContext) {
+                try {
+                    await navigator.clipboard.writeText(text);
+                    return true;
+                } catch (err) {
+                    console.warn('Clipboard API failed, trying fallback:', err);
                 }
-            `;
-            document.head.appendChild(style);
-
-            // Xử lý sự kiện click
-            document.querySelector('.container').addEventListener('click', (event) => {
-                const button = event.target.closest('.copy-btn');
-                if (!button) return;
-
-                const type = button.dataset.type;
-                const step = button.dataset.step;
-                const scriptUrl = scriptUrls[step];
-                
-                let textToCopy = '';
-
-                if (type === 'script') {
-                    textToCopy = `var s=document.createElement('script');s.src='${scriptUrl}';document.head.appendChild(s);`;
-                } else if (type === 'function') {
-                    switch (step) {
-                        case '1':
-                            const followLink = followLinkInput.value.trim();
-                            if (!followLink || !followLink.startsWith('https://app.klingai.com/')) {
-                                // Hiệu ứng lắc input khi lỗi
-                                followLinkInput.style.animation = 'shake 0.5s ease-in-out';
-                                followLinkInput.focus();
-                                setTimeout(() => {
-                                    followLinkInput.style.animation = '';
-                                }, 500);
-                                
-                                alert('⚠️ Vui lòng nhập link follow hợp lệ của Kling AI!');
-                                return;
-                            }
-                            textToCopy = `runRegistration('${followLink}');`;
-                            break;
-                        case '2':
-                            textToCopy = `runFollow();`;
-                            break;
-                        case '3':
-                            textToCopy = `runSignOut();`;
-                            break;
-                    }
+            }
+            
+            // Fallback to execCommand
+            return fallbackCopyTextToClipboard(text);
+        }
+        
+        async function copyStep(step) {
+            let command;
+            if (step === 1) {
+                const followLink = document.getElementById('followLink').value.trim();
+                if (!followLink || !followLink.startsWith('https://app.klingai.com/')) {
+                    showMessage('Vui lòng nhập link hợp lệ bắt đầu bằng https://app.klingai.com/', false);
+                    return;
                 }
-
-                if (textToCopy) {
-                    copyToClipboard(textToCopy, button);
-                }
-            });
-
-            // Thêm animation shake cho input
-            const shakeStyle = document.createElement('style');
-            shakeStyle.textContent = `
-                @keyframes shake {
-                    0%, 100% { transform: translateX(0); }
-                    10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
-                    20%, 40%, 60%, 80% { transform: translateX(8px); }
-                }
-            `;
-            document.head.appendChild(shakeStyle);
-
-            // Thêm placeholder animation
-            followLinkInput.addEventListener('focus', function() {
-                this.placeholder = 'Dán link vào đây...';
-            });
-
-            followLinkInput.addEventListener('blur', function() {
-                this.placeholder = 'https://app.klingai.com/global/user-home/...';
-            });
-        });
+                command = `fetch('${baseUrl}1.js').then(res => res.text()).then(script => { eval(script); startRegistration('${followLink}'); }).catch(err => console.error('Lỗi:', err));`;
+            } else {
+                command = `fetch('${baseUrl}${step}.js').then(res => res.text()).then(script => eval(script)).catch(err => console.error('Lỗi:', err));`;
+            }
+            
+            const success = await copyToClipboard(command);
+            
+            if (success) {
+                showMessage(`Đã copy lệnh Step ${step}! Dán vào console trên https://app.klingai.com và nhấn Enter.`, true);
+            } else {
+                showMessage('Không thể copy tự động. Vui lòng copy thủ công từ console log.', false);
+                console.log('Command to copy:', command);
+            }
+        }
     </script>
 </body>
 </html>

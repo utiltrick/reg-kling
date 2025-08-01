@@ -1,96 +1,132 @@
 :root {
-    --primary-color: #007bff;
-    --success-color: #28a745;
-    --background-color: #f4f7f9;
+    --primary-color: #5a67d8;
+    --primary-hover: #434190;
+    --success-color: #38a169;
+    --background-color: #f7fafc;
     --card-background: #ffffff;
-    --text-color: #333;
-    --border-color: #e0e0e0;
-    --code-bg: #2d2d2d;
+    --text-color: #2d3748;
+    --subtle-text: #718096;
+    --border-color: #e2e8f0;
 }
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     background-color: var(--background-color);
     color: var(--text-color);
-    margin: 0;
-    padding: 2rem;
     display: flex;
     justify-content: center;
+    padding: 2rem 1rem;
+    min-height: 100vh;
 }
+
 .container {
-    max-width: 800px;
+    max-width: 650px;
     width: 100%;
 }
-h1 {
+
+header {
     text-align: center;
-    color: #1a1a1a;
-    margin-bottom: 0.5rem;
-}
-.main-instruction {
-    text-align: center;
-    color: #666;
     margin-bottom: 2.5rem;
 }
+
+header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+header p {
+    font-size: 1.1rem;
+    color: var(--subtle-text);
+}
+
+.input-group {
+    margin-bottom: 2.5rem;
+}
+
+.input-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(90, 103, 216, 0.3);
+}
+
+.steps-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
 .step-card {
     background-color: var(--card-background);
     border: 1px solid var(--border-color);
     border-radius: 12px;
-    padding: 1.5rem 2rem;
-    margin-bottom: 2rem;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    transition: box-shadow 0.2s;
 }
-.step-card h2 {
-    margin-top: 0;
-    color: var(--primary-color);
+
+.step-card:hover {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
-label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
+
+.step-info h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
 }
-label span {
-    font-weight: 400;
-    color: #777;
+
+.step-info p {
+    color: var(--subtle-text);
+    line-height: 1.5;
 }
-input[type="text"] {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 1.5rem;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    box-sizing: border-box;
-    font-size: 1rem;
-    font-family: "Courier New", Courier, monospace;
-}
-.generate-btn {
-    display: block;
-    width: 100%;
-    padding: 12px;
-    font-size: 1rem;
-    font-weight: bold;
+
+.copy-btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    font-family: inherit;
     color: #fff;
     background-color: var(--primary-color);
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.1s ease;
+    flex-shrink: 0;
+    transition: background-color 0.2s, transform 0.1s ease;
 }
-.generate-btn:hover {
-    background-color: #0056b3;
+
+.copy-btn:hover {
+    background-color: var(--primary-hover);
 }
-.generate-btn:active {
-    transform: scale(0.98);
+
+.copy-btn:active {
+    transform: scale(0.96);
 }
-.generate-btn.copied {
+
+.copy-btn.copied {
     background-color: var(--success-color);
-}
-pre {
-    background-color: var(--code-bg);
-    color: #f8f8f2;
-    padding: 1rem;
-    border-radius: 6px;
-    white-space: pre-wrap;
-    word-break: break-all;
-    font-family: "Courier New", Courier, monospace;
-    font-size: 0.9rem;
-    margin-top: 1rem;
 }

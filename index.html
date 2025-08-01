@@ -3,46 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Công cụ chạy Script Kling AI</title>
+    <title>Kling AI - Trình tạo Script</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <div class="container">
-        <h1>Bảng điều khiển Script Kling AI</h1>
-        <p class="main-instruction">Nhấn nút tương ứng với mỗi bước để sao chép mã chạy, sau đó dán vào Console trên trang Kling AI.</p>
+        <h1>Trình tạo Script Chạy Từng Bước</h1>
+        <p class="main-instruction">Dán link đến file script của bạn vào ô tương ứng, sau đó nhấn nút để tạo và sao chép mã chạy.</p>
 
         <div class="step-card">
             <h2>Bước 1: Đăng ký & Chuyển trang</h2>
-            <p class="instruction"><strong>Chạy trên:</strong> Trang chủ <a href="https://app.klingai.com/global/" target="_blank">klingai.com/global/</a></p>
-            <button class="copy-btn" 
-                    data-url="https://raw.githubusercontent.com/utiltrick/kling-buff/main/step1.js"
-                    data-output-id="output-1">
-                Sao chép Script Bước 1
-            </button>
-            <pre><code id="output-1">// Mã chạy sẽ hiện ở đây...</code></pre>
+            <label for="script-url-1">Link đến file <span>step1.js</span> của bạn:</label>
+            <input type="text" class="script-input" id="script-url-1" value="https://raw.githubusercontent.com/utiltrick/kling-buff/main/step1.js">
+            <button class="generate-btn">Tạo và Sao chép Mã chạy Bước 1</button>
+            <pre class="output-code-container" style="display: none;"><code></code></pre>
         </div>
 
         <div class="step-card">
             <h2>Bước 2: Follow</h2>
-            <p class="instruction"><strong>Chạy trên:</strong> Trang profile của người dùng cần follow.</p>
-            <button class="copy-btn" 
-                    data-url="https://raw.githubusercontent.com/utiltrick/kling-buff/main/step2.js"
-                    data-output-id="output-2">
-                Sao chép Script Bước 2
-            </button>
-            <pre><code id="output-2">// Mã chạy sẽ hiện ở đây...</code></pre>
+            <label for="script-url-2">Link đến file <span>step2.js</span> của bạn:</label>
+            <input type="text" class="script-input" id="script-url-2" value="https://raw.githubusercontent.com/utiltrick/kling-buff/main/step2.js">
+            <button class="generate-btn">Tạo và Sao chép Mã chạy Bước 2</button>
+            <pre class="output-code-container" style="display: none;"><code></code></pre>
         </div>
 
         <div class="step-card">
             <h2>Bước 3: Đăng xuất</h2>
-            <p class="instruction"><strong>Chạy trên:</strong> Trang tài khoản (Account).</p>
-            <button class="copy-btn" 
-                    data-url="https://raw.githubusercontent.com/utiltrick/kling-buff/main/step3.js"
-                    data-output-id="output-3">
-                Sao chép Script Bước 3
-            </button>
-            <pre><code id="output-3">// Mã chạy sẽ hiện ở đây...</code></pre>
+            <label for="script-url-3">Link đến file <span>step3.js</span> của bạn:</label>
+            <input type="text" class="script-input" id="script-url-3" value="https://raw.githubusercontent.com/utiltrick/kling-buff/main/step3.js">
+            <button class="generate-btn">Tạo và Sao chép Mã chạy Bước 3</button>
+            <pre class="output-code-container" style="display: none;"><code></code></pre>
         </div>
     </div>
 

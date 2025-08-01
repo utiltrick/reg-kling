@@ -1,14 +1,16 @@
 :root {
     --primary-color: #4f46e5;
     --primary-hover: #4338ca;
+    --secondary-color: #6b7280;
+    --secondary-hover: #4b5563;
     --success-color: #10b981;
     --background-color: #f3f4f6;
     --card-background: #ffffff;
     --text-color: #111827;
     --subtle-text: #6b7280;
-    --border-color: #d1d5db;
-    --shadow-color: rgba(0, 0, 0, 0.1);
-    --focus-ring: rgba(79, 70, 229, 0.4);
+    --border-color: #e2e8f0;
+    --shadow-color: rgba(0, 0, 0, 0.05);
+    --focus-ring: rgba(79, 70, 229, 0.3);
 }
 
 * {
@@ -28,7 +30,7 @@ body {
 }
 
 .container {
-    max-width: 560px;
+    max-width: 650px;
     width: 100%;
     background: var(--card-background);
     padding: 2.5rem 3rem;
@@ -88,11 +90,11 @@ label {
 .steps-container {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.25rem;
 }
 
 .step-card {
-    background-color: var(--background-color);
+    background-color: #f9fafb;
     border: 1px solid var(--border-color);
     border-radius: 12px;
     padding: 1.25rem;
@@ -103,38 +105,51 @@ label {
 }
 
 .step-info h3 {
-    font-size: 1.1rem;
+    font-size: 1.125rem;
     font-weight: 700;
     margin-bottom: 0.25rem;
 }
 
 .step-info p {
     color: var(--subtle-text);
-    font-size: 0.9rem;
+    font-size: 0.875rem;
+}
+
+.button-group {
+    display: flex;
+    gap: 0.75rem;
+    flex-shrink: 0;
 }
 
 .copy-btn {
-    padding: 10px 20px;
-    font-size: 0.9rem;
+    padding: 8px 16px;
+    font-size: 0.875rem;
     font-weight: 600;
     font-family: inherit;
     color: #fff;
-    background-color: var(--primary-color);
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    flex-shrink: 0;
     transition: all 0.2s ease;
 }
 
-.copy-btn:hover {
+.copy-btn.primary {
+    background-color: var(--primary-color);
+}
+.copy-btn.primary:hover {
     background-color: var(--primary-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.copy-btn.secondary {
+    background-color: var(--secondary-color);
+    color: #e5e7eb;
+}
+.copy-btn.secondary:hover {
+    background-color: var(--text-color);
 }
 
 .copy-btn:active {
-    transform: translateY(-1px) scale(0.98);
+    transform: scale(0.97);
 }
 
 .copy-btn.copied {
